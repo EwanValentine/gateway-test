@@ -9,7 +9,7 @@ import (
 	"golang.org/x/net/context"
 	"google.golang.org/grpc"
 
-	hello "github.com/ewanvalentine/gateway-test/proto/greeter"
+	hello "github.com/ewanvalentine/gateway-test/api/proto/greeter"
 )
 
 var (
@@ -25,7 +25,7 @@ func run() error {
 	mux := runtime.NewServeMux()
 	opts := []grpc.DialOption{grpc.WithInsecure()}
 
-	err := hello.RegisterGreeterHandlerFromEndpoint(ctx, mux, "localhost:9000", opts)
+	err := hello.RegisterGreeterHandlerFromEndpoint(ctx, mux, "0.0.0.0:9090", opts)
 	if err != nil {
 		return err
 	}
