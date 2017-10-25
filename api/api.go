@@ -4,12 +4,11 @@ import (
 	"flag"
 	"net/http"
 
+	api "github.com/ewanvalentine/gateway-test/api/proto/greeter"
 	"github.com/golang/glog"
 	"github.com/grpc-ecosystem/grpc-gateway/runtime"
 	"golang.org/x/net/context"
 	"google.golang.org/grpc"
-
-	hello "github.com/ewanvalentine/gateway-test/api/proto/greeter"
 )
 
 var (
@@ -25,7 +24,7 @@ func run() error {
 	mux := runtime.NewServeMux()
 	opts := []grpc.DialOption{grpc.WithInsecure()}
 
-	err := hello.RegisterGreeterHandlerFromEndpoint(ctx, mux, "0.0.0.0:9090", opts)
+	err := api.RegisterGreeterHandlerFromEndpoint(ctx, mux, "localhost:9090", opts)
 	if err != nil {
 		return err
 	}

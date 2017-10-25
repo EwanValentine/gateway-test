@@ -35,7 +35,7 @@ func run() error {
 		return err
 	}
 
-	return http.ListenAndServe(":8080", mux)
+	return http.ListenAndServe("localhost:8080", mux)
 }
 
 func main() {
