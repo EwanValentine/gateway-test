@@ -2,11 +2,11 @@
 // source: proto/greeter/greeter.proto
 
 /*
-Package greeter is a reverse proxy.
+Package go_micro_srv_greeter is a reverse proxy.
 
 It translates gRPC into RESTful JSON APIs.
 */
-package greeter
+package go_micro_srv_greeter
 
 import (
 	"io"

@@ -13,14 +13,20 @@ It has these top-level messages:
 */
 package greeter
 
-import proto "github.com/golang/protobuf/proto"
-import fmt "fmt"
-import math "math"
-import _ "google.golang.org/genproto/googleapis/api/annotations"
-
 import (
+	fmt "fmt"
+	"log"
+
+	proto "github.com/golang/protobuf/proto"
+
+	math "math"
+
+	_ "google.golang.org/genproto/googleapis/api/annotations"
+
 	client "github.com/micro/go-micro/client"
+
 	server "github.com/micro/go-micro/server"
+
 	context "golang.org/x/net/context"
 )
 
@@ -102,6 +108,7 @@ func NewGreeterClient(serviceName string, c client.Client) GreeterClient {
 }
 
 func (c *greeterClient) Hello(ctx context.Context, in *HelloRequest, opts ...client.CallOption) (*HelloResponse, error) {
+	log.Println("Shit")
 	req := c.c.NewRequest(c.serviceName, "Greeter.Hello", in)
 	out := new(HelloResponse)
 	err := c.c.Call(ctx, req, out, opts...)

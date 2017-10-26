@@ -11,11 +11,6 @@ import (
 	"google.golang.org/grpc"
 )
 
-var (
-	// the go.micro.srv.greeter address
-	endpoint = flag.String("endpoint", "localhost:50051", "go.micro.srv.greeter address")
-)
-
 func run() error {
 	ctx := context.Background()
 	ctx, cancel := context.WithCancel(ctx)
@@ -24,7 +19,7 @@ func run() error {
 	mux := runtime.NewServeMux()
 	opts := []grpc.DialOption{grpc.WithInsecure()}
 
-	err := api.RegisterGreeterHandlerFromEndpoint(ctx, mux, "localhost:9090", opts)
+	err := api.RegisterGreeterHandlerFromEndpoint(ctx, mux, "localhost:50051", opts)
 	if err != nil {
 		return err
 	}

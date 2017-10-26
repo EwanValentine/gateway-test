@@ -3,15 +3,13 @@ package main
 import (
 	"fmt"
 	"log"
-	"net/http"
+	"time"
 
-	api "github.com/ewanvalentine/gateway-test/api/proto/greeter"
 	proto "github.com/ewanvalentine/gateway-test/proto/greeter"
 
-	"github.com/grpc-ecosystem/grpc-gateway/runtime"
+	grpc "github.com/micro/go-grpc"
 	micro "github.com/micro/go-micro"
 	"golang.org/x/net/context"
-	"google.golang.org/grpc"
 )
 
 type Greeter struct{}
@@ -22,27 +20,12 @@ func (g *Greeter) Hello(ctx context.Context, req *proto.HelloRequest, rsp *proto
 	return nil
 }
 
-func run() error {
-	ctx := context.Background()
-	ctx, cancel := context.WithCancel(ctx)
-	defer cancel()
-
-	mux := runtime.NewServeMux()
-	opts := []grpc.DialOption{grpc.WithInsecure()}
-
-	err := api.RegisterGreeterHandlerFromEndpoint(ctx, mux, ":9090", opts)
-	if err != nil {
-		return err
-	}
-
-	return http.ListenAndServe("localhost:8080", mux)
-}
-
 func main() {
-	// Create a new service. Optionally include some options here.
-	service := micro.NewService(
-		micro.Name("greeter"),
-		micro.Version("latest"),
+
+	service := grpc.NewService(
+		micro.Name("go.micro.srv.greeter"),
+		micro.RegisterTTL(time.Second*30),
+		micro.RegisterInterval(time.Second*10),
 	)
 
 	// Init will parse the command line flags.

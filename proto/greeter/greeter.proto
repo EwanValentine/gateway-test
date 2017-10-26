@@ -1,15 +1,15 @@
 syntax = "proto3";
 
-package greeter;
+package go.micro.srv.greeter;
 
 import "google/api/annotations.proto";
 
 service Greeter {
 	rpc Hello(HelloRequest) returns (HelloResponse) {
-    option (google.api.http) = {
-      get: "/api/v1/hello/{name}"
-    };
-  }
+        option (google.api.http) = {
+            get: "/api/v1/hello/{name}"
+        };
+    }
 }
 
 message HelloRequest {
